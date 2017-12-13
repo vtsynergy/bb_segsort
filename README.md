@@ -13,12 +13,12 @@ Chicago, USA,
 June 2017.
 * Bibtex:  
 @inproceedings{Hou:Segsort,
- author = {Hou, Kaixi and Liu, Weifeng and Wang, Hao and Feng, Wu-chun},
- title = {Fast Segmented Sort on GPUs},
- booktitle = {Proceedings of the 2017 International Conference on Supercomputing},
- series = {ICS '17},
- year = {2017},
- publisher = {ACM},
+     author = {Hou, Kaixi and Liu, Weifeng and Wang, Hao and Feng, Wu-chun},
+     title = {Fast Segmented Sort on GPUs},
+     booktitle = {Proceedings of the 2017 International Conference on Supercomputing},
+     series = {ICS '17},
+     year = {2017},
+     publisher = {ACM},
 }
 
 ## Usage:
