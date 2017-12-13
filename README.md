@@ -22,8 +22,8 @@ June 2017.
 }
 
 ## Usage:
-You can make changes to the Makefile accordingly. Especially, you need to change the ARCH according to your GPU platform. For example, if you are using the P100, you should update ARCH to 61. 
-To use the segmented sort (bb_segsort), you just need to include the bb_sort.h (with other *.h files). The main.cu contains an example of how to use it. Note, bb_segsort utilizes an unstable sorting network as the building block; thus, equivalent elements are not guaranteed to keep the original relative order. We plan to provide a version to support stable sort in the future. 
+You can make changes to the Makefile accordingly. Especially, you need to change the ARCH according to your GPU platform. For example, if you are using the P100, you should update ARCH to 61. The main.cu contains an example of how to use it.
+
 The following shows how to run the example codes.
 ```
 $ make
@@ -32,6 +32,8 @@ After compilation, run the executable as:
 ```
 $ ./main.out
 ```
+
+To use the segmented sort (**bb_segsort**), you just need to include the bb_sort.h (with other *.h files).  Note, bb_segsort utilizes an unstable sorting network as the building block; thus, equivalent elements are not guaranteed to keep the original relative order. We plan to provide a version to support stable sort in the future. 
 
 ## License: 
 Please refer to the included LICENSE file.
