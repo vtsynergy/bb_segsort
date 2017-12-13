@@ -12,13 +12,13 @@ In Proceedings of the 31th International Conference on Supercomputing (ICS),
 Chicago, USA, 
 June 2017.
 * Bibtex:  
-@InProceedings{wang-transposition-ics16,  
-	author =	{Wang, Hao and Liu, Weifeng and Hou, Kaixi and Feng, Wu-chun},  
-	title = 	"{Parallel Transposition of Sparse Data Structures}",  
-	booktitle =	{30th International Conference on Supercomputing (ICS)},  
-	address =	{Istanbul, Turkey},  
+@InProceedings{Hou:Segsort,  
+	author =	{Hou, Kaixi and Liu, Weifeng and Wang, Hao and Feng, Wu-chun},  
+	title = 	{Fast Segmented Sort on GPUs},  
+	booktitle =	{31th International Conference on Supercomputing (ICS)},  
+	address =	{Chicago, USA},  
 	month =	{June},  
-	year =	{2016},  
+	year =	{2017},  
 }
 
 ## Usage:
