@@ -652,7 +652,7 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         K rg_k13;
         K rg_k14;
         K rg_k15;
-        K rg_v0 ;
+        int rg_v0 ;
         int rg_v1 ;
         int rg_v2 ;
         int rg_v3 ;
