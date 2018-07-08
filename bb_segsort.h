@@ -186,6 +186,7 @@ int bb_segsort(K *keys_d, T *vals_d, int n,  int *d_segs, int length)
     cuda_err = cudaFree(valsB_d);
     CUDA_CHECK(cuda_err, "free valsB");
 
+    for (int i = 0; i < SEGBIN_NUM - 1; i++) cudaStreamDestroy(streams[i]);
     delete[] h_bin_counter;
     return 1;
 }
