@@ -23,6 +23,7 @@
 
 #include <thrust/device_ptr.h>
 #include <thrust/scan.h>
+#include <limits>
 
 __device__
 int binary_search(int *blk_stat, int bin_size, int gid, int blk_num)
@@ -138,10 +139,10 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     k = k + (innerbid<<11);
     seg_size = min(seg_size-(innerbid<<11), 2048);
     /*** codegen ***/
-    rg_k0  = (tid1+(warp_id<<7)+0   <seg_size)?key[k+tid1+(warp_id<<7)+0   ]:INT_MAX;
-    rg_k1  = (tid1+(warp_id<<7)+32  <seg_size)?key[k+tid1+(warp_id<<7)+32  ]:INT_MAX;
-    rg_k2  = (tid1+(warp_id<<7)+64  <seg_size)?key[k+tid1+(warp_id<<7)+64  ]:INT_MAX;
-    rg_k3  = (tid1+(warp_id<<7)+96  <seg_size)?key[k+tid1+(warp_id<<7)+96  ]:INT_MAX;
+    rg_k0  = (tid1+(warp_id<<7)+0   <seg_size)?key[k+tid1+(warp_id<<7)+0   ]:std::numeric_limits<K>::max();
+    rg_k1  = (tid1+(warp_id<<7)+32  <seg_size)?key[k+tid1+(warp_id<<7)+32  ]:std::numeric_limits<K>::max();
+    rg_k2  = (tid1+(warp_id<<7)+64  <seg_size)?key[k+tid1+(warp_id<<7)+64  ]:std::numeric_limits<K>::max();
+    rg_k3  = (tid1+(warp_id<<7)+96  <seg_size)?key[k+tid1+(warp_id<<7)+96  ]:std::numeric_limits<K>::max();
     if(tid1+(warp_id<<7)+0   <seg_size) rg_v0  = tid1+(warp_id<<7)+0   ;
     if(tid1+(warp_id<<7)+32  <seg_size) rg_v1  = tid1+(warp_id<<7)+32  ;
     if(tid1+(warp_id<<7)+64  <seg_size) rg_v2  = tid1+(warp_id<<7)+64  ;
@@ -287,8 +288,8 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
     s_b = lhs_len + gran - s_a;
     
-    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
     if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
     if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -296,11 +297,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v0 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -308,11 +309,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v1 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -320,11 +321,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v2 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -354,8 +355,8 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
     s_b = lhs_len + gran - s_a;
     
-    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
     if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
     if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -363,11 +364,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v0 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -375,11 +376,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v1 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -387,11 +388,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v2 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -421,8 +422,8 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     start = smem + grp_start_off;
     s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
     s_b = lhs_len + gran - s_a;
-    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
     if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
     if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -430,11 +431,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v0 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -442,11 +443,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v1 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -454,11 +455,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v2 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -489,8 +490,8 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
     s_b = lhs_len + gran - s_a;
     
-    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+    tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+    tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
     if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
     if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -498,11 +499,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v0 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -510,11 +511,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v1 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -522,11 +523,11 @@ void kern_block_sort(K *key, T *val, K *keyB, T *valB, int *segs,
     rg_v2 = p ? tmp_v0 : tmp_v1;
     if(p) {
         ++s_a;
-        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+        tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
         if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
     } else {
         ++s_b;
-        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+        tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
         if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
     }
     p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -652,7 +653,7 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         K rg_k13;
         K rg_k14;
         K rg_k15;
-        K rg_v0 ;
+        int rg_v0 ;
         int rg_v1 ;
         int rg_v2 ;
         int rg_v3 ;
@@ -673,8 +674,8 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
 
         s_a = find_kth3(smem+l_st, l_cnt, smem+r_st, r_cnt, gran);
         s_b = gran - s_a;
-        tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
-        tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+        tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
+        tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
         if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -682,11 +683,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v0 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -694,11 +695,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v1 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -706,11 +707,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v2 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -718,11 +719,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v3 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -730,11 +731,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v4 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -742,11 +743,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v5 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -754,11 +755,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v6 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -766,11 +767,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v7 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -778,11 +779,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v8 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -790,11 +791,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v9 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -802,11 +803,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v10 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -814,11 +815,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v11 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -826,11 +827,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v12 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -838,11 +839,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v13 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));
@@ -850,11 +851,11 @@ void kern_block_merge(K *keys, T *vals, K *keysB, T *valsB, int *segs, int *bin,
         rg_v14 = p ? tmp_v0 : tmp_v1;
         if(p) {
             ++s_a;
-            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:INT_MAX;
+            tmp_k0 = (s_a < l_cnt)? smem[l_st+s_a]:std::numeric_limits<K>::max();
             if(s_a < l_cnt) tmp_v0 = (loc_a+l_s_a+s_a);
         } else {
             ++s_b;
-            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:INT_MAX;
+            tmp_k1 = (s_b < r_cnt)? smem[r_st+s_b]:std::numeric_limits<K>::max();
             if(s_b < r_cnt) tmp_v1 = (loc_b+l_s_b+s_b);
         }
         p = (s_b >= r_cnt) || ((s_a < l_cnt) && (tmp_k0 <= tmp_k1));

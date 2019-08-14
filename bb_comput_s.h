@@ -17,6 +17,8 @@
 #ifndef _H_BB_COMPUT_S
 #define _H_BB_COMPUT_S
 
+#include <limits>
+
 #include "bb_exch.h"
 
 template<class K>
@@ -75,7 +77,7 @@ void gen_bk256_wp2_tc1_r2_r2_orig(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         // sort 2 elements
         // exch_intxn: generate exch_intxn()
@@ -106,8 +108,8 @@ void gen_bk128_wp2_tc2_r3_r4_orig(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
-        rg_k1  = (tid+2   <seg_size)?key[k+tid+2   ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
+        rg_k1  = (tid+2   <seg_size)?key[k+tid+2   ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         if(tid+2   <seg_size) rg_v1  = tid+2   ;
         // sort 4 elements
@@ -149,10 +151,10 @@ void gen_bk128_wp2_tc4_r5_r8_orig(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
-        rg_k1  = (tid+2   <seg_size)?key[k+tid+2   ]:INT_MAX;
-        rg_k2  = (tid+4   <seg_size)?key[k+tid+4   ]:INT_MAX;
-        rg_k3  = (tid+6   <seg_size)?key[k+tid+6   ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
+        rg_k1  = (tid+2   <seg_size)?key[k+tid+2   ]:std::numeric_limits<K>::max();
+        rg_k2  = (tid+4   <seg_size)?key[k+tid+4   ]:std::numeric_limits<K>::max();
+        rg_k3  = (tid+6   <seg_size)?key[k+tid+6   ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         if(tid+2   <seg_size) rg_v1  = tid+2   ;
         if(tid+4   <seg_size) rg_v2  = tid+4   ;
@@ -213,10 +215,10 @@ void gen_bk128_wp4_tc4_r9_r16_strd(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
-        rg_k1  = (tid+4   <seg_size)?key[k+tid+4   ]:INT_MAX;
-        rg_k2  = (tid+8   <seg_size)?key[k+tid+8   ]:INT_MAX;
-        rg_k3  = (tid+12  <seg_size)?key[k+tid+12  ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
+        rg_k1  = (tid+4   <seg_size)?key[k+tid+4   ]:std::numeric_limits<K>::max();
+        rg_k2  = (tid+8   <seg_size)?key[k+tid+8   ]:std::numeric_limits<K>::max();
+        rg_k3  = (tid+12  <seg_size)?key[k+tid+12  ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         if(tid+4   <seg_size) rg_v1  = tid+4   ;
         if(tid+8   <seg_size) rg_v2  = tid+8   ;
@@ -399,10 +401,10 @@ void gen_bk128_wp8_tc4_r17_r32_strd(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
-        rg_k1  = (tid+8   <seg_size)?key[k+tid+8   ]:INT_MAX;
-        rg_k2  = (tid+16  <seg_size)?key[k+tid+16  ]:INT_MAX;
-        rg_k3  = (tid+24  <seg_size)?key[k+tid+24  ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
+        rg_k1  = (tid+8   <seg_size)?key[k+tid+8   ]:std::numeric_limits<K>::max();
+        rg_k2  = (tid+16  <seg_size)?key[k+tid+16  ]:std::numeric_limits<K>::max();
+        rg_k3  = (tid+24  <seg_size)?key[k+tid+24  ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         if(tid+8   <seg_size) rg_v1  = tid+8   ;
         if(tid+16  <seg_size) rg_v2  = tid+16  ;
@@ -579,10 +581,10 @@ void gen_bk128_wp16_tc4_r33_r64_strd(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
-        rg_k1  = (tid+16  <seg_size)?key[k+tid+16  ]:INT_MAX;
-        rg_k2  = (tid+32  <seg_size)?key[k+tid+32  ]:INT_MAX;
-        rg_k3  = (tid+48  <seg_size)?key[k+tid+48  ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
+        rg_k1  = (tid+16  <seg_size)?key[k+tid+16  ]:std::numeric_limits<K>::max();
+        rg_k2  = (tid+32  <seg_size)?key[k+tid+32  ]:std::numeric_limits<K>::max();
+        rg_k3  = (tid+48  <seg_size)?key[k+tid+48  ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         if(tid+16  <seg_size) rg_v1  = tid+16  ;
         if(tid+32  <seg_size) rg_v2  = tid+32  ;
@@ -796,22 +798,22 @@ void gen_bk256_wp8_tc16_r65_r128_strd(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
-        rg_k1  = (tid+8   <seg_size)?key[k+tid+8   ]:INT_MAX;
-        rg_k2  = (tid+16  <seg_size)?key[k+tid+16  ]:INT_MAX;
-        rg_k3  = (tid+24  <seg_size)?key[k+tid+24  ]:INT_MAX;
-        rg_k4  = (tid+32  <seg_size)?key[k+tid+32  ]:INT_MAX;
-        rg_k5  = (tid+40  <seg_size)?key[k+tid+40  ]:INT_MAX;
-        rg_k6  = (tid+48  <seg_size)?key[k+tid+48  ]:INT_MAX;
-        rg_k7  = (tid+56  <seg_size)?key[k+tid+56  ]:INT_MAX;
-        rg_k8  = (tid+64  <seg_size)?key[k+tid+64  ]:INT_MAX;
-        rg_k9  = (tid+72  <seg_size)?key[k+tid+72  ]:INT_MAX;
-        rg_k10 = (tid+80  <seg_size)?key[k+tid+80  ]:INT_MAX;
-        rg_k11 = (tid+88  <seg_size)?key[k+tid+88  ]:INT_MAX;
-        rg_k12 = (tid+96  <seg_size)?key[k+tid+96  ]:INT_MAX;
-        rg_k13 = (tid+104 <seg_size)?key[k+tid+104 ]:INT_MAX;
-        rg_k14 = (tid+112 <seg_size)?key[k+tid+112 ]:INT_MAX;
-        rg_k15 = (tid+120 <seg_size)?key[k+tid+120 ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
+        rg_k1  = (tid+8   <seg_size)?key[k+tid+8   ]:std::numeric_limits<K>::max();
+        rg_k2  = (tid+16  <seg_size)?key[k+tid+16  ]:std::numeric_limits<K>::max();
+        rg_k3  = (tid+24  <seg_size)?key[k+tid+24  ]:std::numeric_limits<K>::max();
+        rg_k4  = (tid+32  <seg_size)?key[k+tid+32  ]:std::numeric_limits<K>::max();
+        rg_k5  = (tid+40  <seg_size)?key[k+tid+40  ]:std::numeric_limits<K>::max();
+        rg_k6  = (tid+48  <seg_size)?key[k+tid+48  ]:std::numeric_limits<K>::max();
+        rg_k7  = (tid+56  <seg_size)?key[k+tid+56  ]:std::numeric_limits<K>::max();
+        rg_k8  = (tid+64  <seg_size)?key[k+tid+64  ]:std::numeric_limits<K>::max();
+        rg_k9  = (tid+72  <seg_size)?key[k+tid+72  ]:std::numeric_limits<K>::max();
+        rg_k10 = (tid+80  <seg_size)?key[k+tid+80  ]:std::numeric_limits<K>::max();
+        rg_k11 = (tid+88  <seg_size)?key[k+tid+88  ]:std::numeric_limits<K>::max();
+        rg_k12 = (tid+96  <seg_size)?key[k+tid+96  ]:std::numeric_limits<K>::max();
+        rg_k13 = (tid+104 <seg_size)?key[k+tid+104 ]:std::numeric_limits<K>::max();
+        rg_k14 = (tid+112 <seg_size)?key[k+tid+112 ]:std::numeric_limits<K>::max();
+        rg_k15 = (tid+120 <seg_size)?key[k+tid+120 ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         if(tid+8   <seg_size) rg_v1  = tid+8   ;
         if(tid+16  <seg_size) rg_v2  = tid+16  ;
@@ -1390,14 +1392,14 @@ void gen_bk256_wp32_tc8_r129_r256_strd(
     if(bin_it < bin_size) {
         k = segs[bin[bin_it]];
         seg_size = ((bin[bin_it]==length-1)?n:segs[bin[bin_it]+1])-segs[bin[bin_it]];
-        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:INT_MAX;
-        rg_k1  = (tid+32  <seg_size)?key[k+tid+32  ]:INT_MAX;
-        rg_k2  = (tid+64  <seg_size)?key[k+tid+64  ]:INT_MAX;
-        rg_k3  = (tid+96  <seg_size)?key[k+tid+96  ]:INT_MAX;
-        rg_k4  = (tid+128 <seg_size)?key[k+tid+128 ]:INT_MAX;
-        rg_k5  = (tid+160 <seg_size)?key[k+tid+160 ]:INT_MAX;
-        rg_k6  = (tid+192 <seg_size)?key[k+tid+192 ]:INT_MAX;
-        rg_k7  = (tid+224 <seg_size)?key[k+tid+224 ]:INT_MAX;
+        rg_k0  = (tid+0   <seg_size)?key[k+tid+0   ]:std::numeric_limits<K>::max();
+        rg_k1  = (tid+32  <seg_size)?key[k+tid+32  ]:std::numeric_limits<K>::max();
+        rg_k2  = (tid+64  <seg_size)?key[k+tid+64  ]:std::numeric_limits<K>::max();
+        rg_k3  = (tid+96  <seg_size)?key[k+tid+96  ]:std::numeric_limits<K>::max();
+        rg_k4  = (tid+128 <seg_size)?key[k+tid+128 ]:std::numeric_limits<K>::max();
+        rg_k5  = (tid+160 <seg_size)?key[k+tid+160 ]:std::numeric_limits<K>::max();
+        rg_k6  = (tid+192 <seg_size)?key[k+tid+192 ]:std::numeric_limits<K>::max();
+        rg_k7  = (tid+224 <seg_size)?key[k+tid+224 ]:std::numeric_limits<K>::max();
         if(tid+0   <seg_size) rg_v0  = tid+0   ;
         if(tid+32  <seg_size) rg_v1  = tid+32  ;
         if(tid+64  <seg_size) rg_v2  = tid+64  ;
@@ -1834,10 +1836,10 @@ void gen_bk128_tc4_r257_r512_orig(
             // exch_paral: switch to exch_local()
             CMP_SWP(K,rg_k0 ,rg_k1 ,int,rg_v0 ,rg_v1 );
         } else {
-            rg_k0  = (sml_len+tid1+(big_warp_id<<7)+0   <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+0   ]:INT_MAX;
-            rg_k1  = (sml_len+tid1+(big_warp_id<<7)+32  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+32  ]:INT_MAX;
-            rg_k2  = (sml_len+tid1+(big_warp_id<<7)+64  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+64  ]:INT_MAX;
-            rg_k3  = (sml_len+tid1+(big_warp_id<<7)+96  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+96  ]:INT_MAX;
+            rg_k0  = (sml_len+tid1+(big_warp_id<<7)+0   <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+0   ]:std::numeric_limits<K>::max();
+            rg_k1  = (sml_len+tid1+(big_warp_id<<7)+32  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+32  ]:std::numeric_limits<K>::max();
+            rg_k2  = (sml_len+tid1+(big_warp_id<<7)+64  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+64  ]:std::numeric_limits<K>::max();
+            rg_k3  = (sml_len+tid1+(big_warp_id<<7)+96  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+96  ]:std::numeric_limits<K>::max();
             if(sml_len+tid1+(big_warp_id<<7)+0   <seg_size) rg_v0  = sml_len+tid1+(big_warp_id<<7)+0   ;
             if(sml_len+tid1+(big_warp_id<<7)+32  <seg_size) rg_v1  = sml_len+tid1+(big_warp_id<<7)+32  ;
             if(sml_len+tid1+(big_warp_id<<7)+64  <seg_size) rg_v2  = sml_len+tid1+(big_warp_id<<7)+64  ;
@@ -1991,8 +1993,8 @@ void gen_bk128_tc4_r257_r512_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2000,19 +2002,19 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2020,11 +2022,11 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2032,11 +2034,11 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2044,11 +2046,11 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2101,8 +2103,8 @@ void gen_bk128_tc4_r257_r512_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2110,19 +2112,19 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2130,11 +2132,11 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2142,11 +2144,11 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2154,11 +2156,11 @@ void gen_bk128_tc4_r257_r512_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2301,10 +2303,10 @@ void gen_bk256_tc4_r513_r1024_orig(
             // exch_paral: switch to exch_local()
             CMP_SWP(K,rg_k0 ,rg_k1 ,int,rg_v0 ,rg_v1 );
         } else {
-            rg_k0  = (sml_len+tid1+(big_warp_id<<7)+0   <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+0   ]:INT_MAX;
-            rg_k1  = (sml_len+tid1+(big_warp_id<<7)+32  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+32  ]:INT_MAX;
-            rg_k2  = (sml_len+tid1+(big_warp_id<<7)+64  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+64  ]:INT_MAX;
-            rg_k3  = (sml_len+tid1+(big_warp_id<<7)+96  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+96  ]:INT_MAX;
+            rg_k0  = (sml_len+tid1+(big_warp_id<<7)+0   <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+0   ]:std::numeric_limits<K>::max();
+            rg_k1  = (sml_len+tid1+(big_warp_id<<7)+32  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+32  ]:std::numeric_limits<K>::max();
+            rg_k2  = (sml_len+tid1+(big_warp_id<<7)+64  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+64  ]:std::numeric_limits<K>::max();
+            rg_k3  = (sml_len+tid1+(big_warp_id<<7)+96  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+96  ]:std::numeric_limits<K>::max();
             if(sml_len+tid1+(big_warp_id<<7)+0   <seg_size) rg_v0  = sml_len+tid1+(big_warp_id<<7)+0   ;
             if(sml_len+tid1+(big_warp_id<<7)+32  <seg_size) rg_v1  = sml_len+tid1+(big_warp_id<<7)+32  ;
             if(sml_len+tid1+(big_warp_id<<7)+64  <seg_size) rg_v2  = sml_len+tid1+(big_warp_id<<7)+64  ;
@@ -2458,8 +2460,8 @@ void gen_bk256_tc4_r513_r1024_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2467,19 +2469,19 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2487,11 +2489,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2499,11 +2501,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2511,11 +2513,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2568,8 +2570,8 @@ void gen_bk256_tc4_r513_r1024_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2577,19 +2579,19 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2597,11 +2599,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2609,11 +2611,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2621,11 +2623,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2712,8 +2714,8 @@ void gen_bk256_tc4_r513_r1024_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2721,19 +2723,19 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2741,11 +2743,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2753,11 +2755,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2765,11 +2767,11 @@ void gen_bk256_tc4_r513_r1024_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -2912,10 +2914,10 @@ void gen_bk512_tc4_r1025_r2048_orig(
             // exch_paral: switch to exch_local()
             CMP_SWP(K,rg_k0 ,rg_k1 ,int,rg_v0 ,rg_v1 );
         } else {
-            rg_k0  = (sml_len+tid1+(big_warp_id<<7)+0   <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+0   ]:INT_MAX;
-            rg_k1  = (sml_len+tid1+(big_warp_id<<7)+32  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+32  ]:INT_MAX;
-            rg_k2  = (sml_len+tid1+(big_warp_id<<7)+64  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+64  ]:INT_MAX;
-            rg_k3  = (sml_len+tid1+(big_warp_id<<7)+96  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+96  ]:INT_MAX;
+            rg_k0  = (sml_len+tid1+(big_warp_id<<7)+0   <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+0   ]:std::numeric_limits<K>::max();
+            rg_k1  = (sml_len+tid1+(big_warp_id<<7)+32  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+32  ]:std::numeric_limits<K>::max();
+            rg_k2  = (sml_len+tid1+(big_warp_id<<7)+64  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+64  ]:std::numeric_limits<K>::max();
+            rg_k3  = (sml_len+tid1+(big_warp_id<<7)+96  <seg_size)?key[k+sml_len+tid1+(big_warp_id<<7)+96  ]:std::numeric_limits<K>::max();
             if(sml_len+tid1+(big_warp_id<<7)+0   <seg_size) rg_v0  = sml_len+tid1+(big_warp_id<<7)+0   ;
             if(sml_len+tid1+(big_warp_id<<7)+32  <seg_size) rg_v1  = sml_len+tid1+(big_warp_id<<7)+32  ;
             if(sml_len+tid1+(big_warp_id<<7)+64  <seg_size) rg_v2  = sml_len+tid1+(big_warp_id<<7)+64  ;
@@ -3069,8 +3071,8 @@ void gen_bk512_tc4_r1025_r2048_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3078,19 +3080,19 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3098,11 +3100,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3110,11 +3112,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3122,11 +3124,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3179,8 +3181,8 @@ void gen_bk512_tc4_r1025_r2048_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3188,19 +3190,19 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3208,11 +3210,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3220,11 +3222,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3232,11 +3234,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3323,8 +3325,8 @@ void gen_bk512_tc4_r1025_r2048_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3332,19 +3334,19 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3352,11 +3354,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3364,11 +3366,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3376,11 +3378,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3583,8 +3585,8 @@ void gen_bk512_tc4_r1025_r2048_orig(
         s_a = find_kth3(start, lhs_len, start+lhs_len, rhs_len, gran);
         s_b = lhs_len + gran - s_a;
         if(sml_warp){
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3592,19 +3594,19 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
             rg_k1 = p ? tmp_k0 : tmp_k1;
             rg_v1 = p ? tmp_v0 : tmp_v1;
         } else {
-            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:INT_MAX;
-            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+            tmp_k0 = (s_a<lhs_len        )?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
+            tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
             if(s_a<lhs_len        ) tmp_v0 = tmem[grp_start_off+s_a];
             if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3612,11 +3614,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v0 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3624,11 +3626,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v1 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
@@ -3636,11 +3638,11 @@ void gen_bk512_tc4_r1025_r2048_orig(
             rg_v2 = p ? tmp_v0 : tmp_v1;
             if(p) {
                 ++s_a;
-                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:INT_MAX;
+                tmp_k0 = (s_a<lhs_len)?smem[grp_start_off+s_a]:std::numeric_limits<K>::max();
                 if(s_a<lhs_len) tmp_v0 = tmem[grp_start_off+s_a];
             } else {
                 ++s_b;
-                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:INT_MAX;
+                tmp_k1 = (s_b<lhs_len+rhs_len)?smem[grp_start_off+s_b]:std::numeric_limits<K>::max();
                 if(s_b<lhs_len+rhs_len) tmp_v1 = tmem[grp_start_off+s_b];
             }
             p = (s_b>=lhs_len+rhs_len)||((s_a<lhs_len)&&(tmp_k0<=tmp_k1));
